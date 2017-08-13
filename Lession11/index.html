@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lession 11</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react-dom.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.20/browser.min.js"></script>
+    <link rel="stylesheet" href="./lesson5challengestyling.css">
+  </head>
+  <body>
+    <div id="app">
+    </div>
+    <script type="text/babel">
+      let BasicCount = (BasicComponet) => class extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {count:0};
+          this.incremetCount = this.incremetCount.bind(this);
+        }
+        incremetCount(){
+          this.setState({
+            count: this.state.count + 1
+          });
+        }
+        render(){
+            return(
+              <div className = "container">
+                <BasicComponet count={this.state.count} clickHandler = {this.incremetCount}/>
+              </div>
+            );
+        }
+      }
+      const Button = (props) => {
+        return(
+          <button className = "btn blue-btn" onClick = {props.clickHandler}>Count: {props.count}</button>
+        );
+      }
+      const Label = (props) => {
+        return(
+          <label onMouseMove = {props.clickHandler}>Count: {props.count}</label>
+        );
+      }
+      let ExtendedButton = BasicCount(Button);
+      let ExtendedLabel = BasicCount(Label);
+      const Container = () => {
+          return(
+            <div>
+            <ExtendedButton />
+            <ExtendedLabel />
+            </div>
+          );
+      }
+      ReactDOM.render(
+        <Container />,
+        document.getElementById('app')
+      );
+    </script>
+  </body>
+</html>

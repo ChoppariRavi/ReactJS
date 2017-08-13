@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lession 08</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react-dom.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.20/browser.min.js"></script>
+    <link rel="stylesheet" href="./lesson5challengestyling.css">
+  </head>
+  <body>
+    <div id="app">
+    </div>
+    <script type="text/babel">
+      var LikesComponent = React.createClass({
+        updateLikes: function(){
+          ReactDOM.render(
+            <LikesComponent likes = {this.props.likes+1}/>,
+            document.getElementById('app')
+          );
+        },
+        getDefaultProps:function(){
+          return({
+              likes: 0
+            })
+        },
+        getInitialState: function(){
+          return({
+            popular: false
+          })
+        },
+        componentWillReceiveProps(nextProps){
+          // console.log(nextProps.likes);
+            this.setState({
+              popular: nextProps.likes>9 ? true : false
+            });
+        },
+        /*shouldComponentUpdate(nextProps, nextStates){
+          return nextProps.likes%2 === 0;
+        },*/
+        render:function(){
+          return(
+            <div className = "container">
+            <h1>{this.state.popular ? "I'm Popular!" : null}</h1>
+            <button className = "btn blue-btn" onClick = {this.updateLikes}>Likes {this.props.likes}</button>
+            </div>
+          )
+        },
+      componentDidUpdate: function(prevProps, prevState) {
+        //console.log("Previous Props ", prevProps);
+        //console.log("Previous State ", prevState);
+        // console.log(ReactDOM.findDOMNode(this));
+      }
+
+      });
+      ReactDOM.render(
+        <LikesComponent />,
+        document.getElementById('app')
+      );
+    </script>
+  </body>
+</html>

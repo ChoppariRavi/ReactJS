@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lession 05</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react-dom.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.20/browser.min.js"></script>
+    <link rel="stylesheet" href="./lesson5challengestyling.css">
+  </head>
+  <body>
+    <div id="app">
+    </div>
+    <script type="text/babel">
+      class StateChallenge extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {
+            count: 0
+          }
+          this.addCount = this.addCount.bind(this);
+        }
+        addCount(aVal){
+          this.setState({
+            count: this.state.count + aVal
+          });
+        }
+        render(){
+          return(
+            <div className = "container">
+              <h1>Count: {this.state.count}</h1>
+              <Button style = "btn blue-btn" text = {`${this.props.text} ${this.props.value1}`} clickHandler={() => this.addCount(this.props.value1)} value = {this.props.value1}/>
+              <Button style = "btn green-btn" text = {`${this.props.text} ${this.props.value2}`} clickHandler={() => this.addCount(this.props.value2)} value = {this.props.value2}/>
+              <Button style = "btn purple-btn" text = {`${this.props.text} ${this.props.value3}`} clickHandler={() => this.addCount(this.props.value3)} value = {this.props.value3}/>
+            </div>
+          );
+        }
+      };
+      StateChallenge.defaultProps = {
+          value1: 1,
+          value2: 5,
+          value3: 10,
+          text: 'Add'
+      }
+      const Button = (props) =>{
+        return(
+          <button className = {props.style} value = {props.value} onClick = {props.clickHandler}>{props.text}</button>
+        );
+      }
+      Button.propTypes = {
+        style: React.PropTypes.string,
+        text: React.PropTypes.string,
+        clickHandler: React.PropTypes.func.isRequired,
+        value: React.PropTypes.number
+      }
+      ReactDOM.render(
+        <StateChallenge value1 = {10} value2 = {100} value3 = {1000}/>,
+        document.getElementById('app')
+      );
+    </script>
+  </body>
+</html>

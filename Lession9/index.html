@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lession 09</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react-dom.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.20/browser.min.js"></script>
+    <link rel="stylesheet" href="./lesson5challengestyling.css">
+  </head>
+  <body>
+    <div id="app">
+    </div>
+    <script type="text/babel">
+      class ES6Component extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {count:0};
+            this.click = this.click.bind(this);
+        }
+        click(){
+          console.log("Clicked!");
+        }
+        render(){
+          return(
+            <div className = "container">
+            <Button className = "btn blue-btn" clickHandler = {this.click}></Button>
+            </div>
+          );
+        }
+      }
+      const Button = (props) => {
+        return (<button className = {props.className} onClick = {props.clickHandler}>Click Me!</button>);
+      }
+      ES6Component.defaultProps = {text:"Hello"};
+      Button.propTypes = {text:React.PropTypes.string};
+      ReactDOM.render(
+        <ES6Component />,
+        document.getElementById('app')
+      );
+    </script>
+  </body>
+</html>
